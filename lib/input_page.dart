@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'resuable_card.dart';
+import 'child_set.dart';
 
 const bottomContainerHeight = 70.0;
 const fieldsColor = Color(0xFF1D1E33);
@@ -18,52 +21,54 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: <Widget>[
-          Expanded(child: Row(
-            children: <Widget>[
-              Expanded(child: ReusableCard(colour: fieldsColor),
-              ),
-              Expanded(child: ReusableCard(colour: fieldsColor),
-              ),
-            ],
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(
+                    colour: fieldsColor,
+                    cardChild: ChildSet(
+                      fieldIcon: FontAwesomeIcons.mars,
+                      fieldText: 'MALE',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ReusableCard(
+                    colour: fieldsColor,
+                    cardChild: ChildSet(
+                      fieldIcon: FontAwesomeIcons.venus,
+                      fieldText: 'FEMALE',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-          Expanded(child: ReusableCard(colour: fieldsColor),
-              ),
-          Expanded(child: Row(
-            children: <Widget>[
-              Expanded(child: ReusableCard(colour: fieldsColor),
-              ),
-              Expanded(child: ReusableCard(colour: fieldsColor),
-              ),
-            ],
+          Expanded(
+            child: ReusableCard(colour: fieldsColor),
           ),
-        ),
-        Container(
-          color: calculateColor,
-          margin: EdgeInsets.only(top: 10),
-          width: double.infinity,
-          height: bottomContainerHeight,
-        )
-       ],
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(colour: fieldsColor),
+                ),
+                Expanded(
+                  child: ReusableCard(colour: fieldsColor),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            color: calculateColor,
+            margin: EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: bottomContainerHeight,
+          )
+        ],
       ),
     );
   }
 }
 
-class ReusableCard extends StatelessWidget {
-
-  final Color colour;
-
-  ReusableCard({@required this.colour});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-          margin: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: colour,
-            borderRadius: BorderRadius.circular(10),
-          ),
-        );
-  }
-}
