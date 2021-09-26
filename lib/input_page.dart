@@ -7,6 +7,9 @@ import 'constants.dart';
 enum Gender { male, female }
 Gender selectedGender;
 
+enum NumManipulation {increment, decrement}
+NumManipulation numChange;
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
@@ -15,7 +18,9 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Color maleCardColor = kInactiveColor;
   Color femaleCardColor = kInactiveColor;
-  int currentSliderHeight = 180;
+  int sliderHeight = 170;
+  int currentWeight = 60;
+  int currentAge = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +85,7 @@ class _InputPageState extends State<InputPage> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        currentSliderHeight.toString(),
+                        sliderHeight.toString(),
                         style: kIconsTextStyle,
                       ),
                       Text(
@@ -91,22 +96,23 @@ class _InputPageState extends State<InputPage> {
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                      overlayShape: RoundSliderOverlayShape(overlayRadius: 22.0),
+                      thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 22.0),
                       thumbColor: Color(0xFFEB1555),
                       activeTrackColor: Colors.white,
                       inactiveTrackColor: Color(0xFF8D8E98),
                       overlayColor: Color(0x29EB1555),
-                      
                     ),
                     child: Slider(
-                      value: currentSliderHeight.toDouble(),
+                      value: sliderHeight.toDouble(),
                       min: 120.0,
                       max: 220.0,
                       onChanged: (double newValue) {
-                           setState(() {
-                             currentSliderHeight = newValue.round();
-                           });
+                        setState(() {
+                          sliderHeight = newValue.round();
+                        });
                       },
                     ),
                   ),
@@ -118,10 +124,80 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: kFieldsColor),
+                  child: ReusableCard(
+                    colour: kFieldsColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kLabelsTextStyle,
+                        ),
+                        Text(
+                          currentWeight.toString(),
+                          style: kIconsTextStyle,
+                        ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             RoundIconButton(icon: FontAwesomeIcons.minus,
+                             tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
+                               setState(() {
+                                 currentWeight--;
+                               });
+                             },),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              RoundIconButton(icon: FontAwesomeIcons.plus,
+                              tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
+                               setState(() {
+                                 currentWeight++;
+                               });
+                             },),
+                           ],
+                         ),
+                      ],
+                    ),
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: kFieldsColor),
+                  child: ReusableCard(
+                    colour: kFieldsColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelsTextStyle,
+                        ),
+                        Text(
+                          currentAge.toString(),
+                          style: kIconsTextStyle,
+                        ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             RoundIconButton(icon: FontAwesomeIcons.minus,
+                             tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
+                               setState(() {
+                                 currentAge--;
+                               });
+                             },),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              RoundIconButton(icon: FontAwesomeIcons.plus,
+                              tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
+                               setState(() {
+                                 currentAge++;
+                               });
+                             },),
+                           ],
+                         ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -134,6 +210,32 @@ class _InputPageState extends State<InputPage> {
           )
         ],
       ),
+    );
+  }
+}
+
+
+//fully Custom made Button from scratch
+//We use a very basic building block therefore we can customise fundamentally 
+class RoundIconButton extends StatelessWidget {
+
+  final IconData icon;
+  final Function tapAction; //This function will be called when the widget is Pressed
+
+  RoundIconButton({@required this.icon, @required this.tapAction});
+
+  @override 
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon),
+      onPressed: tapAction, //This activates when widget gets pressed, calls the tapAction function
+      elevation: 6.0,
+      constraints: BoxConstraints.tightFor(
+        width: 56.0,
+        height: 56.0,
+      ),
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
     );
   }
 }
