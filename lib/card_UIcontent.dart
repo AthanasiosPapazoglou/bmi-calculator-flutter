@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
-class GenderSet extends StatelessWidget {
+
+class ContentSet extends StatelessWidget {
   final String fieldText;
   final IconData fieldIcon;
 
-  GenderSet({@required this.fieldText, @required this.fieldIcon});
+  ContentSet({@required this.fieldText, @required this.fieldIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +24,8 @@ class GenderSet extends StatelessWidget {
         ),
         Text(
           fieldText,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Color(0xFF8D8E98),
+          style: kLabelsTextStyle,
           ),
-        )
       ],
     );
   }

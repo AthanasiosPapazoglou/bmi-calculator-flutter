@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'resuable_card.dart';
-import 'gender_set.dart';
+import 'card_UIcontent.dart';
+import 'constants.dart';
 
-const bottomContainerHeight = 70.0;
-const inactiveColor = Color(0xFF111328);
-const activeColor = Color(0xFF1D1E33);
-const fieldsColor = Color(0xFF1D1E33);
-const calculateColor = Color(0xFFEB1555);
-enum Gender{ male, female }
+enum Gender { male, female }
 Gender selectedGender;
-
-
 
 class InputPage extends StatefulWidget {
   @override
@@ -19,9 +13,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleCardColor = inactiveColor;
-  Color femaleCardColor = inactiveColor;
-
+  Color maleCardColor = kInactiveColor;
+  Color femaleCardColor = kInactiveColor;
+  int currentSliderHeight = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +24,22 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    onPress: (){
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.male;
                       });
                     },
-                    colour: selectedGender == Gender.male ? activeColor : inactiveColor,
-                    cardChild: GenderSet(
+                    colour: selectedGender == Gender.male
+                        ? kActiveColor
+                        : kInactiveColor,
+                    cardChild: ContentSet(
                       fieldIcon: FontAwesomeIcons.mars,
                       fieldText: 'MALE',
                     ),
@@ -50,13 +47,15 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    onPress: (){
+                    onPress: () {
                       setState(() {
                         selectedGender = Gender.female;
                       });
                     },
-                    colour: selectedGender == Gender.female ? activeColor : inactiveColor,
-                    cardChild: GenderSet(
+                    colour: selectedGender == Gender.female
+                        ? kActiveColor
+                        : kInactiveColor,
+                    cardChild: ContentSet(
                       fieldIcon: FontAwesomeIcons.venus,
                       fieldText: 'FEMALE',
                     ),
@@ -66,25 +65,63 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(colour: fieldsColor),
+            child: ReusableCard(
+              colour: kFieldsColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'HEIGHT',
+                    style: kLabelsTextStyle,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        currentSliderHeight.toString(),
+                        style: kIconsTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLabelsTextStyle,
+                      )
+                    ],
+                  ),
+                  Slider(
+                    value: currentSliderHeight.toDouble(),
+                    min: 120.0,
+                    max: 220.0,
+                    activeColor: Color(0xFFEB1555),
+                    inactiveColor: Color(0xFF8D8E98),
+                    onChanged: (double newValue) {
+                         setState(() {
+                           currentSliderHeight = newValue.round();
+                         });
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
           Expanded(
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: fieldsColor),
+                  child: ReusableCard(colour: kFieldsColor),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: fieldsColor),
+                  child: ReusableCard(colour: kFieldsColor),
                 ),
               ],
             ),
           ),
           Container(
-            color: calculateColor,
+            color: kCalculateColor,
             margin: EdgeInsets.only(top: 10),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           )
         ],
       ),
