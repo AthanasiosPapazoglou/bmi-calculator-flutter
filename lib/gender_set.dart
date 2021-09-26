@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ChildSet extends StatelessWidget {
+class GenderSet extends StatelessWidget {
   final String fieldText;
   final IconData fieldIcon;
 
-  ChildSet({@required this.fieldText, @required this.fieldIcon});
+  GenderSet({@required this.fieldText, @required this.fieldIcon});
 
   @override
   Widget build(BuildContext context) {
