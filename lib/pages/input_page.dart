@@ -1,13 +1,17 @@
+import 'package:bmi_calculator/pages/result_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'resuable_card.dart';
-import 'card_UIcontent.dart';
-import 'constants.dart';
+import '../components/resuable_card.dart';
+import '../components/card_UIcontent.dart';
+import '../components/constants.dart';
+import 'result_screen.dart';
+import '../UI_elements/calc_button.dart';
+import '../UI_elements/custom_button.dart';
 
 enum Gender { male, female }
 Gender selectedGender;
 
-enum NumManipulation {increment, decrement}
+enum NumManipulation { increment, decrement }
 NumManipulation numChange;
 
 class InputPage extends StatefulWidget {
@@ -137,26 +141,32 @@ class _InputPageState extends State<InputPage> {
                           currentWeight.toString(),
                           style: kIconsTextStyle,
                         ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             RoundIconButton(icon: FontAwesomeIcons.minus,
-                             tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
-                               setState(() {
-                                 currentWeight--;
-                               });
-                             },),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              RoundIconButton(icon: FontAwesomeIcons.plus,
-                              tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
-                               setState(() {
-                                 currentWeight++;
-                               });
-                             },),
-                           ],
-                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              tapAction: () {
+                                //We specify the CodeB of tapAction Here NOT within the widget
+                                setState(() {
+                                  currentWeight--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              tapAction: () {
+                                //We specify the CodeB of tapAction Here NOT within the widget
+                                setState(() {
+                                  currentWeight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -175,26 +185,32 @@ class _InputPageState extends State<InputPage> {
                           currentAge.toString(),
                           style: kIconsTextStyle,
                         ),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             RoundIconButton(icon: FontAwesomeIcons.minus,
-                             tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
-                               setState(() {
-                                 currentAge--;
-                               });
-                             },),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              RoundIconButton(icon: FontAwesomeIcons.plus,
-                              tapAction: () { //We specify the CodeB of tapAction Here NOT within the widget
-                               setState(() {
-                                 currentAge++;
-                               });
-                             },),
-                           ],
-                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              tapAction: () {
+                                //We specify the CodeB of tapAction Here NOT within the widget
+                                setState(() {
+                                  currentAge--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              tapAction: () {
+                                //We specify the CodeB of tapAction Here NOT within the widget
+                                setState(() {
+                                  currentAge++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -202,40 +218,19 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kCalculateColor,
-            margin: EdgeInsets.only(top: 10),
-            width: double.infinity,
-            height: kBottomContainerHeight,
-          )
+          BottomButton(
+            buttonTitle: 'CALCULATE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
+                ),
+              );
+            },
+          ),
         ],
       ),
-    );
-  }
-}
-
-
-//fully Custom made Button from scratch
-//We use a very basic building block therefore we can customise fundamentally 
-class RoundIconButton extends StatelessWidget {
-
-  final IconData icon;
-  final Function tapAction; //This function will be called when the widget is Pressed
-
-  RoundIconButton({@required this.icon, @required this.tapAction});
-
-  @override 
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed: tapAction, //This activates when widget gets pressed, calls the tapAction function
-      elevation: 6.0,
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
     );
   }
 }

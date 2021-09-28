@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\Users\grjur\Documents\development\sdks\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\grjur\Documents\development\projects\bmi-calculator-flutter"
+export "FLUTTER_ROOT=C:\Users\30695\Documents\Development\sdks\flutter"
+export "FLUTTER_APPLICATION_PATH=C:\Users\30695\Documents\Development\projects\bmi-calculator-flutter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"
